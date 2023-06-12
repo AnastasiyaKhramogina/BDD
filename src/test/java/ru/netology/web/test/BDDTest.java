@@ -38,7 +38,7 @@ class MoneyTransferTest {
     }
 
     @Test
-    void PositiveFirstCardToSecond() {
+    void TransferFirstCardToSecond() {
         int actual1 = dashboardPage.depositFirstCard().deposit(4155, DataHelper.secondCardNumber())
                 .getFirstCardBalance();
         Assertions.assertEquals(14155, actual1);
@@ -47,7 +47,7 @@ class MoneyTransferTest {
     }
 
     @Test
-    void PositiveSecondCardToFirst() {
+    void TransferSecondCardToFirst() {
         int actual = dashboardPage.depositSecondCard().deposit(6578, DataHelper.firstCardNumber())
                 .getSecondCardBalance();
         Assertions.assertEquals(16578, actual);
