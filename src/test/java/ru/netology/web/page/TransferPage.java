@@ -45,4 +45,11 @@ public class TransferPage {
     public void clickCancel() {
         cancelButton.click();
     }
+    public void specialSymbolAndLettersInAmountField(){
+        amount.sendKeys(Keys.CONTROL + "A");
+        amount.sendKeys(Keys.DELETE);
+        amount.setValue("-+/").shouldBe(Condition.empty);
+        amount.setValue("asdf").shouldBe(Condition.empty);
+
+    }
 }

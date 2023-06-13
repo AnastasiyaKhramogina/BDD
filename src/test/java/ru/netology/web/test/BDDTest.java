@@ -1,6 +1,7 @@
 package ru.netology.web.test;
 
 import com.codeborne.selenide.Condition;
+import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -145,7 +146,7 @@ class MoneyTransferTest {
         TransferPage transferPage = dashboardPage.depositFirstCard();
         transferPage.setAmount(300);
         transferPage.setSourceCard(DataHelper.secondCardNumber());
-        new TransferPage().clickCancel();
+        transferPage.clickCancel();
         int actual1 = dashboardPage.getFirstCardBalance();
         Assertions.assertEquals(10000, actual1);
         int actual2 = dashboardPage.getSecondCardBalance();
@@ -161,10 +162,7 @@ class MoneyTransferTest {
     @Test
     void specialSymbolAndLettersInAmountField() {
         TransferPage transferPage = dashboardPage.depositFirstCard();
-        transferPage.amount.sendKeys(Keys.CONTROL + "A");
-        transferPage.amount.sendKeys(Keys.DELETE);
-        transferPage.amount.setValue("-+/").shouldBe(Condition.empty);
-        transferPage.amount.setValue("asdf").shouldBe(Condition.empty);
+        transferPage.specialSymbolAndLettersInAmountField();
     }
 
     @Test
