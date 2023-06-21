@@ -8,19 +8,19 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class TransferPage {
-    public SelenideElement amount = $("[data-test-id=amount] input");
-    public SelenideElement cardFrom = $("[data-test-id=from] input");
-    public SelenideElement cardTo = $("[data-test-id=to] input");
-    public SelenideElement depositButton = $("[data-test-id=action-transfer]");
-    public SelenideElement messageError = $("[data-test-id=error-notification]");
-    public SelenideElement cancelButton = $("[data-test-id=action-cancel]");
+    private SelenideElement amount = $("[data-test-id=amount] input");
+    private SelenideElement cardFrom = $("[data-test-id=from] input");
+    private SelenideElement cardTo = $("[data-test-id=to] input");
+    private SelenideElement depositButton = $("[data-test-id=action-transfer]");
+    private SelenideElement messageError = $("[data-test-id=error-notification]");
+    private SelenideElement cancelButton = $("[data-test-id=action-cancel]");
 
     public TransferPage() {
         $x("//*[contains(text(), 'Пополнение карты')]").shouldBe(Condition.visible);
     }
 
     public DashboardPage deposit(int depositAmount, String sourceCard) {
-        setAmount(depositAmount);
+        setAmount(String.valueOf(depositAmount));
         setSourceCard(sourceCard);
         depositButton.click();
         return new DashboardPage();
@@ -32,10 +32,10 @@ public class TransferPage {
         cardFrom.setValue(sourceCard);
     }
 
-    public void setAmount(int depositAmount) {
+    public void setAmount(String depositAmount) {
         amount.sendKeys(Keys.CONTROL + "A");
         amount.sendKeys(Keys.DELETE);
-        amount.setValue(Integer.toString(depositAmount));
+        amount.setValue(depositAmount);
     }
 
     public void checkErrorVisible() {
@@ -44,12 +44,5 @@ public class TransferPage {
 
     public void clickCancel() {
         cancelButton.click();
-    }
-    public void specialSymbolAndLettersInAmountField(){
-        amount.sendKeys(Keys.CONTROL + "A");
-        amount.sendKeys(Keys.DELETE);
-        amount.setValue("-+/").shouldBe(Condition.empty);
-        amount.setValue("asdf").shouldBe(Condition.empty);
-
     }
 }

@@ -144,7 +144,7 @@ class MoneyTransferTest {
     @Test
     void clickCancel() {
         TransferPage transferPage = dashboardPage.depositFirstCard();
-        transferPage.setAmount(300);
+        transferPage.setAmount(String.valueOf(300));
         transferPage.setSourceCard(DataHelper.secondCardNumber());
         transferPage.clickCancel();
         int actual1 = dashboardPage.getFirstCardBalance();
